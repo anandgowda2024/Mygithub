@@ -26,4 +26,3 @@ jobs:
       - name: Cache Not Found
         if: ${{ steps.demo-cache.outputs.cache-hit != 'true' }}
         run: echo "Cache Not Found"
-has context menu
