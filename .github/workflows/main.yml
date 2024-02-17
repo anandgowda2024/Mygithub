@@ -1,22 +1,23 @@
-name: A workflow for My Demo website
-on: 
+name: VariablesDemoWorkflow
+on:
   workflow_dispatch:
-  push:
-    paths: ['**', '!.github/**']
+ 
+env:
+  DAY_OF_WEEK: Monday
  
 jobs:
-  build-job:
-    name: Hello world action
+  example-job:
     runs-on: ubuntu-latest
+    env:
+      Greeting: Hello 
     steps:
-    - uses: actions/checkout@v1
-      name: Check out code
-    - name: Echo Hello World
-      run: echo Hello World
-    - name: Index.html Content
+    - name: Print value of Variable
       run: |
-         echo "This is line1"
-         echo "This is line2"
-         cat Index.html
-         cat courses.html
-    
+        echo "Value of Greeting is: ${{ env.Greeting }}"
+        echo "Value of Greeting is: $Greeting"
+        echo "Value of Repo Variable is: ${{ vars.REPO_VARIABLE1 }}"
+    - name: "Say Hello, it's Monday"
+      if: ${{ env.DAY_OF_WEEK == 'Monday' }}
+      run: echo "${{ env.Greeting }} ${{ env.FirstName }}. Today is ${{ env.DAY_OF_WEEK }}!"
+      env:
+        FirstName: Sandeep
